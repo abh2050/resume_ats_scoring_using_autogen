@@ -1,6 +1,6 @@
 """
 Configuration Management for ATS System
-Handles environment variables, API keys, and system settings
+Handles environment variables, API keys, and system settings with Streamlit Cloud support
 """
 
 import os
@@ -8,6 +8,30 @@ from typing import Dict, Any, Optional
 from dataclasses import dataclass
 from pathlib import Path
 import logging
+
+# Try to import streamlit for secrets support
+try:
+    import streamlit as st
+    HAS_STREAMLIT = True
+except ImportError:
+    HAS_STREAMLIT = False
+
+
+def get_secret(key: str, default: Any = None) -> Any:
+    """
+    Get secret from Streamlit secrets or environment variables
+    Priority: Streamlit secrets > Environment variables > Default
+    """
+    # Try Streamlit secrets first (for cloud deployment)
+    if HAS_STREAMLIT:
+        try:
+            if hasattr(st, 'secrets') and key in st.secrets:
+                return st.secrets[key]
+        except Exception:
+            pass
+    
+    # Fallback to environment variables
+    return os.getenv(key, default)
 
 
 @dataclass
@@ -103,19 +127,19 @@ class ConfigManager:
         """Load LLM configuration"""
         
         # Determine provider based on available API keys
-        provider = os.getenv("LLM_PROVIDER", "none").lower()
+        provider = get_secret("LLM_PROVIDER", "none").lower()
         
         if provider == "none" or provider == "":
             # Auto-detect based on available API keys
-            if os.getenv("OPENAI_API_KEY"):
+            if get_secret("OPENAI_API_KEY"):
                 provider = "openai"
-            elif os.getenv("AZURE_OPENAI_API_KEY"):
+            elif get_secret("AZURE_OPENAI_API_KEY"):
                 provider = "azure"
-            elif os.getenv("ANTHROPIC_API_KEY"):
+            elif get_secret("ANTHROPIC_API_KEY"):
                 provider = "anthropic"
-            elif os.getenv("GOOGLE_API_KEY"):
+            elif get_secret("GOOGLE_API_KEY"):
                 provider = "google"
-            elif os.getenv("OLLAMA_BASE_URL"):
+            elif get_secret("OLLAMA_BASE_URL"):
                 provider = "ollama"
             else:
                 provider = "none"
@@ -123,26 +147,26 @@ class ConfigManager:
         config = LLMConfig(provider=provider)
         
         if provider == "openai":
-            config.api_key = os.getenv("OPENAI_API_KEY")
-            config.model = os.getenv("OPENAI_MODEL", "gpt-4")
-            config.temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.1"))
+            config.api_key = get_secret("OPENAI_API_KEY")
+            config.model = get_secret("OPENAI_MODEL", "gpt-4")
+            config.temperature = float(get_secret("OPENAI_TEMPERATURE", "0.1"))
         
         elif provider == "azure":
-            config.api_key = os.getenv("AZURE_OPENAI_API_KEY")
-            config.base_url = os.getenv("AZURE_OPENAI_ENDPOINT")
-            config.model = os.getenv("AZURE_OPENAI_MODEL", "gpt-4")
+            config.api_key = get_secret("AZURE_OPENAI_API_KEY")
+            config.base_url = get_secret("AZURE_OPENAI_ENDPOINT")
+            config.model = get_secret("AZURE_OPENAI_MODEL", "gpt-4")
         
         elif provider == "anthropic":
-            config.api_key = os.getenv("ANTHROPIC_API_KEY")
-            config.model = os.getenv("ANTHROPIC_MODEL", "claude-3-sonnet-20240229")
+            config.api_key = get_secret("ANTHROPIC_API_KEY")
+            config.model = get_secret("ANTHROPIC_MODEL", "claude-3-sonnet-20240229")
         
         elif provider == "google":
-            config.api_key = os.getenv("GOOGLE_API_KEY")
-            config.model = os.getenv("GOOGLE_MODEL", "gemini-pro")
+            config.api_key = get_secret("GOOGLE_API_KEY")
+            config.model = get_secret("GOOGLE_MODEL", "gemini-pro")
         
         elif provider == "ollama":
-            config.base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-            config.model = os.getenv("OLLAMA_MODEL", "llama2")
+            config.base_url = get_secret("OLLAMA_BASE_URL", "http://localhost:11434")
+            config.model = get_secret("OLLAMA_MODEL", "llama2")
             config.api_key = None  # Ollama doesn't need API key
         
         return config

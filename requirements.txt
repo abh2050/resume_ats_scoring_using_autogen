@@ -1,20 +1,17 @@
-# Assignment 1: ATS Resume Scoring System Requirements
+# ATS Resume Scoring System - Streamlit Cloud Compatible
 
 # Core AutoGen Framework
 pyautogen>=0.2.0
 
 # LLM Provider Support
 openai>=1.0.0
-anthropic>=0.3.0  # Optional: For Claude API
 
 # Document Processing
 PyPDF2>=3.0.0
 python-docx>=0.8.11
-pdfplumber>=0.9.0  # Alternative PDF processing
 
 # Web Framework
 streamlit>=1.28.0
-streamlit-extras>=0.3.0
 
 # Data Processing and Analysis
 pandas>=2.0.0
@@ -22,29 +19,16 @@ numpy>=1.24.0
 
 # Visualization
 plotly>=5.17.0
-matplotlib>=3.7.0
-seaborn>=0.12.0
 
 # Database Support
 sqlalchemy>=2.0.0
-sqlite3  # Built-in with Python
-pymongo>=4.5.0  # For MongoDB option
-psycopg2-binary>=2.9.0  # For PostgreSQL option
 
 # Natural Language Processing
 spacy>=3.7.0
-nltk>=3.8.0
-sentence-transformers>=2.2.0  # For embeddings
-
-# Vector Database for RAG
-chromadb>=0.4.0
-faiss-cpu>=1.7.4  # Alternative vector database
+sentence-transformers>=2.2.0
 
 # Text Processing
 textstat>=0.7.3
-textblob>=0.17.1
-fuzzywuzzy>=0.18.0
-python-Levenshtein>=0.21.1
 
 # File Handling and Utilities
 python-dotenv>=1.0.0

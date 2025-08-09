@@ -332,6 +332,27 @@ cp .env.example .env
 streamlit run streamlit_app/app.py
 ```
 
+### Streamlit Cloud Deployment
+
+1. **Fork this repository** on GitHub
+
+2. **Deploy to Streamlit Cloud:**
+   - Go to [share.streamlit.io](https://share.streamlit.io)
+   - Connect your GitHub account
+   - Select this repository
+   - Set main file path: `streamlit_app/app.py`
+
+3. **Add secrets in Streamlit Cloud:**
+   - Go to your app settings → Secrets
+   - Add your API key:
+   ```toml
+   OPENAI_API_KEY = "your-api-key-here"
+   ```
+
+4. **Your app will be live at:** `https://your-app-name.streamlit.app`
+
+> **Note:** The app works in Pure Python mode without API keys, but LLM mode requires OpenAI API key for enhanced features.
+
 ## 💡 Key Features
 
 ### ✅ Dual Processing Modes
