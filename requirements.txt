@@ -1,0 +1,7 @@
+streamlit          # Web interface
+pyautogen          # Core AutoGen framework
+openai             # LLM provider
+PyPDF2             # PDF processing
+python-docx        # Word document processing
+pandas             # Data handling
+plotly             # Visualization
