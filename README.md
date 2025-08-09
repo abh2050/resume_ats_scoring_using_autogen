@@ -98,6 +98,242 @@ The system **automatically detects** if API keys are available and switches mode
 │  │• PDF/DOCX Parse │  │• Scoring Logic  │  │• Recommendations    │ │
 │  │• Text Extract   │  │• Consistency    │  │• Gap Analysis       │ │
 │  │• JSON Convert   │  │• Benchmarks     │  │• Actionable Tips    │ │
+```
+
+## 🎨 System Architecture - Mermaid Diagrams
+
+### 🏗️ Multi-Agent Architecture Overview
+
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        UI[Streamlit Web Interface]
+        FU[File Upload Component]
+        SD[Score Display Component]
+        RC[Recommendations Component]
+        JM[Job Matching Component]
+    end
+    
+    subgraph "AutoGen Agent System"
+        RP[Resume Processor Agent]
+        AS[ATS Scorer Agent]
+        JA[Job Analyzer Agent]
+        IA[Improvement Agent]
+        VA[Visualization Agent]
+    end
+    
+    subgraph "Data Layer"
+        DB[(SQLite Database)]
+        KB[Knowledge Base]
+        FS[File Storage]
+    end
+    
+    subgraph "Processing Modes"
+        PM[Pure Python Mode]
+        LLM[LLM Mode with APIs]
+    end
+    
+    UI --> FU
+    UI --> SD
+    UI --> RC
+    UI --> JM
+    
+    FU --> RP
+    RP --> AS
+    AS --> IA
+    IA --> VA
+    JA --> AS
+    
+    RP --> PM
+    RP --> LLM
+    
+    AS --> DB
+    IA --> KB
+    VA --> FS
+    
+    style RP fill:#e1f5fe
+    style AS fill:#f3e5f5
+    style JA fill:#fff3e0
+    style IA fill:#e8f5e8
+    style VA fill:#fce4ec
+```
+
+### 🔄 Resume Processing Workflow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant UI as Streamlit UI
+    participant RP as Resume Processor
+    participant AS as ATS Scorer
+    participant JA as Job Analyzer
+    participant IA as Improvement Agent
+    participant VA as Visualization Agent
+    participant DB as Database
+
+    U->>UI: Upload Resume & Job Description
+    UI->>RP: Process Files
+    
+    Note over RP: Detect Processing Mode
+    alt API Keys Available
+        RP->>RP: LLM Mode - Intelligent Processing
+    else No API Keys
+        RP->>RP: Pure Python Mode - Rule-based
+    end
+    
+    RP->>AS: Structured Resume Data
+    RP->>JA: Job Description Data
+    
+    JA->>AS: Job Requirements Analysis
+    
+    Note over AS: Multi-Criteria Scoring
+    AS->>AS: Technical Skills (25%)
+    AS->>AS: Soft Skills (20%)
+    AS->>AS: Experience Match (25%)
+    AS->>AS: Education Fit (15%)
+    AS->>AS: Keywords (15%)
+    
+    AS->>DB: Store Scores
+    AS->>IA: Score Breakdown
+    
+    IA->>IA: Generate Improvements
+    IA->>VA: Improvement Data
+    
+    VA->>VA: Create Visualizations
+    VA->>UI: Render Results
+    
+    UI->>U: Display Score & Recommendations
+```
+
+### 🧠 Agent Interaction Model
+
+```mermaid
+flowchart LR
+    subgraph "Input Processing"
+        PDF[PDF Resume]
+        DOCX[DOCX Resume]
+        JOB[Job Description]
+    end
+    
+    subgraph "Resume Processor Agent"
+        direction TB
+        EXTRACT[Text Extraction]
+        PARSE[Structure Parsing]
+        VALIDATE[Data Validation]
+        JSON[JSON Conversion]
+    end
+    
+    subgraph "ATS Scorer Agent"
+        direction TB
+        TECH[Technical Skills Analysis]
+        SOFT[Soft Skills Evaluation]
+        EXP[Experience Matching]
+        EDU[Education Assessment]
+        KEY[Keyword Analysis]
+        SCORE[Final Score Calculation]
+    end
+    
+    subgraph "Job Analyzer Agent"
+        direction TB
+        REQ[Requirements Extraction]
+        SKILL[Skill Requirements]
+        LEVEL[Experience Level]
+        QUAL[Qualifications]
+    end
+    
+    subgraph "Improvement Agent"
+        direction TB
+        GAP[Gap Analysis]
+        REC[Recommendations]
+        PRIORITY[Priority Ranking]
+        ACTION[Action Items]
+    end
+    
+    subgraph "Visualization Agent"
+        direction TB
+        CHART[Score Charts]
+        RADAR[Skill Radar]
+        PROG[Progress Bars]
+        REPORT[Summary Report]
+    end
+    
+    PDF --> EXTRACT
+    DOCX --> EXTRACT
+    JOB --> REQ
+    
+    EXTRACT --> PARSE --> VALIDATE --> JSON
+    REQ --> SKILL --> LEVEL --> QUAL
+    
+    JSON --> TECH
+    JSON --> SOFT
+    JSON --> EXP
+    JSON --> EDU
+    JSON --> KEY
+    
+    QUAL --> TECH
+    SKILL --> SOFT
+    LEVEL --> EXP
+    
+    TECH --> SCORE
+    SOFT --> SCORE
+    EXP --> SCORE
+    EDU --> SCORE
+    KEY --> SCORE
+    
+    SCORE --> GAP
+    GAP --> REC --> PRIORITY --> ACTION
+    
+    SCORE --> CHART
+    ACTION --> RADAR
+    REC --> PROG
+    PRIORITY --> REPORT
+    
+    style EXTRACT fill:#bbdefb
+    style TECH fill:#c8e6c9
+    style REQ fill:#ffe0b2
+    style GAP fill:#f8bbd9
+    style CHART fill:#d1c4e9
+```
+
+### 🎯 Scoring Algorithm Flow
+
+```mermaid
+flowchart TD
+    START([Resume Input]) --> MODE{Processing Mode?}
+    
+    MODE -->|API Available| LLM_MODE[LLM Processing]
+    MODE -->|No API| PYTHON_MODE[Pure Python Processing]
+    
+    LLM_MODE --> LLM_EXTRACT[AI-Powered Extraction]
+    PYTHON_MODE --> RULE_EXTRACT[Rule-Based Extraction]
+    
+    LLM_EXTRACT --> STRUCT[Structured Data]
+    RULE_EXTRACT --> STRUCT
+    
+    STRUCT --> SCORING{Scoring Criteria}
+    
+    SCORING --> TECH_SCORE[Technical Skills: 25%]
+    SCORING --> SOFT_SCORE[Soft Skills: 20%]
+    SCORING --> EXP_SCORE[Experience: 25%]
+    SCORING --> EDU_SCORE[Education: 15%]
+    SCORING --> KEY_SCORE[Keywords: 15%]
+    
+    TECH_SCORE --> CALC[Score Calculation]
+    SOFT_SCORE --> CALC
+    EXP_SCORE --> CALC
+    EDU_SCORE --> CALC
+    KEY_SCORE --> CALC
+    
+    CALC --> FINAL[Final ATS Score]
+    FINAL --> IMPROVE[Improvement Analysis]
+    IMPROVE --> VIZ[Visualization Generation]
+    VIZ --> OUTPUT([Results Display])
+    
+    style LLM_MODE fill:#e3f2fd
+    style PYTHON_MODE fill:#f3e5f5
+    style FINAL fill:#c8e6c9
+    style OUTPUT fill:#ffecb3
+```
 │  └─────────────────┘  └─────────────────┘  └─────────────────────┘ │
 │  ┌─────────────────┐  ┌─────────────────┐                          │
 │  │Job Analyzer     │  │Visualization    │                          │
