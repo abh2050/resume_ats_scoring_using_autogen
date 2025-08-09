@@ -1,3 +1,4 @@
+![](https://lifthcm.com/hubfs/An%20intricate%20diagram%20showing%20the%20workflow%20and%20stages%20of%20an%20Applicant%20Tracking%20System%20ATS.jpeg)
 # Professional ATS Resume Scoring System using AutoGen
 
 **Objective:** A comprehensive ATS resume scoring solution using Microsoft AutoGen with consistent scoring, improvement recommendations, and professional visualizations.
