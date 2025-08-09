@@ -1,9 +1,9 @@
-# Professional ATS Resume Scoring System using Autogen
+# Professional ATS Resume Scoring System using AutoGen
 
-**Due Date:** August 16th, 2025  
-**Objective:** Build a comprehensive ATS resume scoring solution using Microsoft AutoGen with consistent scoring, improvement recommendations, and professional visualizations.
+**Objective:** A comprehensive ATS resume scoring solution using Microsoft AutoGen with consistent scoring, improvement recommendations, and professional visualizations.
 
-## 📁 Project Structure
+## 📁 Actual Project Structure
+```
 resume_ats_scoring/
 ├── src/
 │   ├── agents/                    # AutoGen agent implementations
@@ -13,50 +13,16 @@ resume_ats_scoring/
 │   │   ├── improvement_agent.py   # Improvement recommendation agent
 │   │   └── visualization_agent.py # Visualization agent
 │   ├── database/                  # Database operations
-│   │   ├── models.py             # Database models
-│   │   ├── operations.py         # CRUD operations
-│   │   └── connection.py         # Database connection
+│   │   └── operations.py         # CRUD operations
 │   ├── rag/                      # RAG implementation
-│   │   ├── knowledge_base.py     # Knowledge base management
-│   │   ├── retrieval.py          # Document retrieval
-│   │   └── embeddings.py         # Embedding generation
-│   ├── tools/                    # External tools and APIs
-│   │   ├── file_processors.py    # PDF/DOCX processing
-│   │   ├── text_cleaning.py      # Text preprocessing
-│   │   └── scoring_algorithm.py   # Core scoring logic
+│   │   └── knowledge_base.py     # Knowledge base management
 │   └── utils/                    # Utility functions
-│       ├── config.py             # Configuration management
-│       ├── constants.py          # System constants
-│       └── helpers.py            # Helper functions
+│       └── config.py             # Configuration management
 ├── streamlit_app/                # Streamlit frontend
-│   ├── app.py                    # Main Streamlit application
-│   ├── components/               # UI components
-│   │   ├── file_upload.py        # File upload component
-│   │   ├── scoring_display.py    # Score visualization
-│   │   ├── recommendations.py    # Improvement suggestions
-│   │   └── job_matching.py       # Job matching interface
-│   └── styles/                   # CSS and styling
-│       └── main.css              # Main stylesheet
-├── data/                         # Data storage
-│   ├── knowledge_base/           # RAG knowledge base
-│   ├── sample_resumes/           # Sample resume files
-│   ├── job_descriptions/         # Sample job descriptions
-│   └── scoring_history/          # Historical scoring data
-├── docs/                         # Documentation
-│   ├── api_documentation.md      # API documentation
-│   ├── user_manual.md           # User manual
-│   ├── architecture.md          # System architecture
-│   └── setup_guide.md           # Installation guide
-├── tests/                        # Test files
-│   ├── test_agents.py           # Agent testing
-│   ├── test_scoring.py          # Scoring algorithm tests
-│   └── test_consistency.py      # Consistency tests
-├── docker/                       # Docker configuration
-│   ├── Dockerfile               # Container definition
-│   └── docker-compose.yml       # Multi-service setup
+│   └── app.py                    # Main Streamlit application
 ├── requirements.txt              # Python dependencies
 ├── .env.example                 # Environment variables template
-├── setup.py                     # Package setup
+├── .gitignore                   # Git ignore file
 └── README.md                    # Project documentation
 ```
 
@@ -333,6 +299,105 @@ flowchart TD
     style PYTHON_MODE fill:#f3e5f5
     style FINAL fill:#c8e6c9
     style OUTPUT fill:#ffecb3
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.8+
+- OpenAI API key (optional, for LLM mode)
+
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/abh2050/resume_ats_scoring_using_autogen.git
+cd resume_ats_scoring_using_autogen
+```
+
+2. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Set up environment variables:**
+```bash
+cp .env.example .env
+# Edit .env file with your API keys (optional)
+```
+
+4. **Run the application:**
+```bash
+streamlit run streamlit_app/app.py
+```
+
+## 💡 Key Features
+
+### ✅ Dual Processing Modes
+- **Pure Python Mode**: Works offline without API keys
+- **LLM Mode**: Enhanced accuracy with AI-powered analysis
+
+### ✅ Multi-Agent Architecture
+- **Resume Processor**: Extracts and structures resume data
+- **ATS Scorer**: Calculates comprehensive scores
+- **Job Analyzer**: Analyzes job requirements
+- **Improvement Agent**: Generates actionable recommendations
+- **Visualization Agent**: Creates professional charts and reports
+
+### ✅ Comprehensive Scoring
+- Technical Skills Analysis (25%)
+- Soft Skills Evaluation (20%)
+- Experience Matching (25%)
+- Education Assessment (15%)
+- Keyword Analysis (15%)
+
+### ✅ Professional Interface
+- Clean Streamlit web interface
+- File upload support (PDF, DOCX, TXT)
+- Interactive score visualizations
+- Detailed improvement recommendations
+
+## 🔧 Usage
+
+1. **Upload Resume**: Support for PDF, DOCX, and TXT formats
+2. **Add Job Description**: Paste or upload job requirements
+3. **Get Instant Score**: Receive detailed ATS score breakdown
+4. **View Improvements**: Get specific recommendations to improve your resume
+5. **Export Results**: Download detailed reports and visualizations
+
+## 🛠️ Technical Implementation
+
+- **Framework**: Microsoft AutoGen for multi-agent coordination
+- **Frontend**: Streamlit for web interface
+- **Database**: SQLite for data persistence
+- **Processing**: Dual-mode (rule-based + LLM) text analysis
+- **Security**: Environment-based API key management
+
+## 📊 Scoring Methodology
+
+The system evaluates resumes across five key dimensions:
+
+1. **Technical Skills** (25%): Programming languages, frameworks, tools
+2. **Soft Skills** (20%): Communication, leadership, teamwork
+3. **Experience** (25%): Years of experience, role relevance
+4. **Education** (15%): Degree level, institution, field of study
+5. **Keywords** (15%): Job-specific terminology and buzzwords
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For questions or issues, please open an issue on GitHub or contact the maintainers.
 ```
 │  └─────────────────┘  └─────────────────┘  └─────────────────────┘ │
 │  ┌─────────────────┐  ┌─────────────────┐                          │
