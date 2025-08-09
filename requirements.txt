@@ -1,36 +1,24 @@
-# ATS Resume Scoring System - Streamlit Cloud Compatible
+# ATS Resume Scoring System - Minimal Dependencies
 
-# Core AutoGen Framework
+# Core Framework
 pyautogen>=0.2.0
-
-# LLM Provider Support
 openai>=1.0.0
 
-# Document Processing
+# Document Processing  
 PyPDF2>=3.0.0
 python-docx>=0.8.11
 
 # Web Framework
 streamlit>=1.28.0
 
-# Data Processing and Analysis
+# Essential Data Processing
 pandas>=2.0.0
 numpy>=1.24.0
 
 # Visualization
 plotly>=5.17.0
 
-# Database Support
-sqlalchemy>=2.0.0
-
-# Natural Language Processing
-spacy>=3.7.0
-sentence-transformers>=2.2.0
-
-# Text Processing
-textstat>=0.7.3
-
-# File Handling and Utilities
+# Configuration
 python-dotenv>=1.0.0
 pydantic>=2.0.0
 typing-extensions>=4.5.0
